@@ -1,6 +1,7 @@
 import { Tabs } from 'expo-router'
 import { Foundation, Ionicons } from '@expo/vector-icons'
 import { theme } from '@/theme'
+import { Avatar } from '@/components/Avatar'
 
 export default function TabLayout() {
   return (
@@ -40,7 +41,17 @@ export default function TabLayout() {
           ),
         }}
       />
-      <Tabs.Screen name="profile" />
+      <Tabs.Screen
+        name="profile"
+        options={{
+          tabBarIcon: ({ color }) => (
+            <Avatar
+              selected={color === theme.colors.white}
+              source={{ uri: 'https://github.com/arthurrios.png' }}
+            />
+          ),
+        }}
+      />
     </Tabs>
   )
 }

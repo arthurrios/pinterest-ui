@@ -1,33 +1,46 @@
-/* eslint-disable camelcase */
-import { Slot } from 'expo-router'
-import { StatusBar } from 'react-native'
-import { GestureHandlerRootView } from 'react-native-gesture-handler'
-import * as SplashScreen from 'expo-splash-screen'
+import { Tabs } from 'expo-router'
+import { Foundation, Ionicons } from '@expo/vector-icons'
+import { theme } from '@/theme'
 
-import {
-  Roboto_400Regular,
-  Roboto_500Medium,
-  Roboto_700Bold,
-  useFonts,
-} from '@expo-google-fonts/roboto'
-
-SplashScreen.preventAutoHideAsync()
-
-export default function Layout() {
-  const [fontsLoaded] = useFonts({
-    Roboto_400Regular,
-    Roboto_500Medium,
-    Roboto_700Bold,
-  })
-
-  if (!fontsLoaded) {
-    SplashScreen.hideAsync()
-  }
-
+export default function TabLayout() {
   return (
-    <GestureHandlerRootView style={{ flex: 1 }}>
-      <StatusBar barStyle="light-content" />
-      {fontsLoaded && <Slot />}
-    </GestureHandlerRootView>
+    <Tabs
+      screenOptions={{
+        headerShown: false,
+        tabBarShowLabel: false,
+        tabBarStyle: {
+          backgroundColor: theme.colors.black,
+          borderColor: theme.colors.black,
+        },
+        tabBarActiveTintColor: theme.colors.white,
+        tabBarInactiveTintColor: theme.colors.gray[600],
+      }}
+    >
+      <Tabs.Screen
+        name="index"
+        options={{
+          tabBarIcon: ({ size, color }) => (
+            <Foundation name="home" size={size} color={color} />
+          ),
+        }}
+      />
+      <Tabs.Screen
+        name="search"
+        options={{
+          tabBarIcon: ({ size, color }) => (
+            <Ionicons name="search" size={size} color={color} />
+          ),
+        }}
+      />
+      <Tabs.Screen
+        name="messages"
+        options={{
+          tabBarIcon: ({ size, color }) => (
+            <Ionicons name="chatbubble-ellipses" size={size} color={color} />
+          ),
+        }}
+      />
+      <Tabs.Screen name="profile" />
+    </Tabs>
   )
 }
